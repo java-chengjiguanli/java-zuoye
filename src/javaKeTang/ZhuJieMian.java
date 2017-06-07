@@ -29,7 +29,7 @@ public class ZhuJieMian extends JFrame {
 	private JTable table;
 	private DefaultTableModel tableModel;
 	String[] tableHeadName = { "学号", "姓名", "成绩" };
-
+	static ZhuJieMian frame;
 	/**
 	 * Launch the application.
 	 */
@@ -37,7 +37,7 @@ public class ZhuJieMian extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ZhuJieMian frame = new ZhuJieMian();
+					frame = new ZhuJieMian();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -86,13 +86,15 @@ public class ZhuJieMian extends JFrame {
 				JFileChooser filechooser = new JFileChooser();
 				filechooser.showOpenDialog(ZhuJieMian.this);
 				Ku.file = filechooser.getSelectedFile();
-				try {
-					Ku.getKu().duqu();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if(Ku.file != null){
+					try {
+						Ku.getKu().duqu();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					gengxinbiao();
 				}
-				gengxinbiao();
 			}
 		});
 		menuBar.add(menuItem);
@@ -154,6 +156,17 @@ public class ZhuJieMian extends JFrame {
 		menuBar.add(menuItem_4);
 
 		JMenuItem menuItem_5 = new JMenuItem("查询");
+		menuItem_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					Chaxun dialog = new Chaxun(frame);
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		menuBar.add(menuItem_5);
 	}
 
