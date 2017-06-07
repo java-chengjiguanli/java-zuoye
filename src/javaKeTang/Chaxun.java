@@ -11,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class Chaxun extends JDialog {
@@ -126,5 +129,27 @@ public class Chaxun extends JDialog {
 			}
 		}
 		zhujiemian.gengxinbiao();
+		try{
+			daochu();
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	void daochu() throws IOException{
+		BufferedWriter w1 = new BufferedWriter(new FileWriter(Ku.file));
+		try{
+			for(Student s:Ku.getKu().list){
+				w1.write(s.id);
+				w1.newLine();
+				w1.write(s.name);
+				w1.newLine();
+				w1.write(String.valueOf(s.score));
+				w1.newLine();
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			w1.close();
+		}
 	}
 }
