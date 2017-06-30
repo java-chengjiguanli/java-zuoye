@@ -1,6 +1,5 @@
 package javaKeTang;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -30,6 +29,7 @@ public class ZhuJieMian extends JFrame {
 	private DefaultTableModel tableModel;
 	String[] tableHeadName = { "学号", "姓名", "成绩" };
 	static ZhuJieMian frame;
+
 	/**
 	 * Launch the application.
 	 */
@@ -86,7 +86,7 @@ public class ZhuJieMian extends JFrame {
 				JFileChooser filechooser = new JFileChooser();
 				filechooser.showOpenDialog(ZhuJieMian.this);
 				Ku.file = filechooser.getSelectedFile();
-				if(Ku.file != null){
+				if (Ku.file != null) {
 					try {
 						Ku.getKu().duqu();
 					} catch (IOException e) {
@@ -111,48 +111,48 @@ public class ZhuJieMian extends JFrame {
 				}
 			}
 		});
-		
-				JMenu mnNewMenu = new JMenu("          排序          ");
-				menuBar.add(mnNewMenu);
-				
-				JMenuItem menuItem_1 = new JMenuItem("按学号");
-				menuItem_1.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						sortByid();
-						gengxinbiao();
-					}
-				});
-				mnNewMenu.add(menuItem_1);
-				
-						JMenuItem menuItem_2 = new JMenuItem("按姓名");
-						menuItem_2.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								sortByname();
-								gengxinbiao();
-							}
-						});
-						mnNewMenu.add(menuItem_2);
-						
-								JMenu menu = new JMenu("按成绩");
-								mnNewMenu.add(menu);
-								
-										JMenuItem menuItem_3 = new JMenuItem("由低到高");
-										menuItem_3.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent arg0) {
-												sortByscore();
-												gengxinbiao();
-											}
-										});
-										menu.add(menuItem_3);
-										
-												JMenuItem menuItem_6 = new JMenuItem("由高到低");
-												menuItem_6.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-														sortByscore1();
-														gengxinbiao();
-													}
-												});
-												menu.add(menuItem_6);
+
+		JMenu mnNewMenu = new JMenu("          排序          ");
+		menuBar.add(mnNewMenu);
+
+		JMenuItem menuItem_1 = new JMenuItem("按学号");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sortByid();
+				gengxinbiao();
+			}
+		});
+		mnNewMenu.add(menuItem_1);
+
+		JMenuItem menuItem_2 = new JMenuItem("按姓名");
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sortByname();
+				gengxinbiao();
+			}
+		});
+		mnNewMenu.add(menuItem_2);
+
+		JMenu menu = new JMenu("按成绩");
+		mnNewMenu.add(menu);
+
+		JMenuItem menuItem_3 = new JMenuItem("由低到高");
+		menuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sortByscore();
+				gengxinbiao();
+			}
+		});
+		menu.add(menuItem_3);
+
+		JMenuItem menuItem_6 = new JMenuItem("由高到低");
+		menuItem_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sortByscore1();
+				gengxinbiao();
+			}
+		});
+		menu.add(menuItem_6);
 		menuBar.add(menuItem_4);
 
 		JMenuItem menuItem_5 = new JMenuItem("                  查询");

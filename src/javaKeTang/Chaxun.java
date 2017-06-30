@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
@@ -31,12 +32,15 @@ public class Chaxun extends JDialog {
 	String[] tableHeadName1 = { "学号", "姓名" };
 	String[] tableHeadName2 = { "成绩" };
 	ZhuJieMian zhujiemian;
+
 	/**
 	 * Create the dialog.
 	 */
-	public Chaxun(){}
+	public Chaxun() {
+	}
+
 	public Chaxun(ZhuJieMian zhujiemian) {
-		this.zhujiemian=zhujiemian;
+		this.zhujiemian = zhujiemian;
 		setTitle("查询界面");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -56,7 +60,7 @@ public class Chaxun extends JDialog {
 			JButton button = new JButton("确定");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String xuehao=textField.getText()+"\t";
+					String xuehao = textField.getText() + "\t";
 					chaxun(xuehao);
 				}
 			});
@@ -90,7 +94,7 @@ public class Chaxun extends JDialog {
 			contentPanel.add(table_1);
 		}
 		{
-			JButton button = new JButton("确认修改");
+			JButton button = new JButton("修改");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					xiugai();
@@ -104,10 +108,11 @@ public class Chaxun extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		}
 	}
-	
-	void chaxun(String xuehao){
-		for(Student s:Ku.getKu().list){
-			if(xuehao.equals(s.id)){
+
+	void chaxun(String xuehao) {
+		int falg = 0;
+		for (Student s : Ku.getKu().list) {
+			if (xuehao.equals(s.id)) {
 				Object[][] o1 = new Object[1][2];
 				o1[0][0] = s.id;
 				o1[0][1] = s.name;
@@ -115,30 +120,47 @@ public class Chaxun extends JDialog {
 				o2[0][0] = s.score;
 				tableMode1.setDataVector(o1, tableHeadName1);
 				tableMode2.setDataVector(o2, tableHeadName2);
+				falg++;
+			}
+		}
+		if (falg == 0) {
+			{
+				Object[] options = { "确定", "退出" };
+				JOptionPane.showOptionDialog(null, "您所输入的学号有误，请重新输入", "警告！", JOptionPane.DEFAULT_OPTION,
+						JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 			}
 		}
 	}
-	void xiugai(){
-		String xuehao=table.getValueAt(0, 0).toString();
+
+	void xiugai() {
+		{
+			Object[] options = { "确定", "不修改" };
+			int n=JOptionPane.showOptionDialog(null, "请确认修改！", "提示", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			if(n==1){
+				return;
+			}
+		}
+		String xuehao = table.getValueAt(0, 0).toString();
 		table_1.getCellEditor().stopCellEditing();
-		double chengji=Double.parseDouble(table_1.getValueAt(0, 0).toString());
-		for(int i=0;i<Ku.getKu().list.size();i++){
-			String x=Ku.getKu().list.get(i).id;
-			if(xuehao.equals(x)){
-				Ku.getKu().list.get(i).score=chengji;
+		double chengji = Double.parseDouble(table_1.getValueAt(0, 0).toString());
+		for (int i = 0; i < Ku.getKu().list.size(); i++) {
+			String x = Ku.getKu().list.get(i).id;
+			if (xuehao.equals(x)) {
+				Ku.getKu().list.get(i).score = chengji;
 			}
 		}
 		zhujiemian.gengxinbiao();
-		try{
+		try {
 			daochu();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
-	void daochu() throws IOException{
+
+	void daochu() throws IOException {
 		BufferedWriter w1 = new BufferedWriter(new FileWriter(Ku.file));
-		try{
-			for(Student s:Ku.getKu().list){
+		try {
+			for (Student s : Ku.getKu().list) {
 				w1.write(s.id);
 				w1.newLine();
 				w1.write(s.name);
@@ -146,9 +168,9 @@ public class Chaxun extends JDialog {
 				w1.write(String.valueOf(s.score));
 				w1.newLine();
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
-		}finally {
+		} finally {
 			w1.close();
 		}
 	}
