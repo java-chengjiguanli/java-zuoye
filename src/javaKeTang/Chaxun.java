@@ -29,8 +29,8 @@ public class Chaxun extends JDialog {
 	private JTable table_1;
 	private DefaultTableModel tableMode1;
 	private DefaultTableModel tableMode2;
-	String[] tableHeadName1 = { "Ñ§ºÅ", "ĞÕÃû" };
-	String[] tableHeadName2 = { "³É¼¨" };
+	String[] tableHeadName1 = { "å­¦å·", "å§“å" };
+	String[] tableHeadName2 = { "æˆç»©" };
 	ZhuJieMian zhujiemian;
 
 	/**
@@ -41,14 +41,14 @@ public class Chaxun extends JDialog {
 
 	public Chaxun(ZhuJieMian zhujiemian) {
 		this.zhujiemian = zhujiemian;
-		setTitle("²éÑ¯½çÃæ");
+		setTitle("æŸ¥è¯¢ç•Œé¢");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			JLabel label = new JLabel("ÇëÊäÈëÑ§ºÅ:");
+			JLabel label = new JLabel("è¯·è¾“å…¥å­¦å·:");
 			contentPanel.add(label);
 		}
 		{
@@ -57,7 +57,7 @@ public class Chaxun extends JDialog {
 			textField.setColumns(10);
 		}
 		{
-			JButton button = new JButton("È·¶¨");
+			JButton button = new JButton("ç¡®å®š");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String xuehao = textField.getText() + "\t";
@@ -94,7 +94,7 @@ public class Chaxun extends JDialog {
 			contentPanel.add(table_1);
 		}
 		{
-			JButton button = new JButton("ĞŞ¸Ä");
+			JButton button = new JButton("ä¿®æ”¹");
 			button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					xiugai();
@@ -125,8 +125,8 @@ public class Chaxun extends JDialog {
 		}
 		if (falg == 0) {
 			{
-				Object[] options = { "È·¶¨", "ÍË³ö" };
-				JOptionPane.showOptionDialog(null, "ÄúËùÊäÈëµÄÑ§ºÅÓĞÎó£¬ÇëÖØĞÂÊäÈë", "¾¯¸æ£¡", JOptionPane.DEFAULT_OPTION,
+				Object[] options = { "ç¡®å®š", "é€€å‡º" };
+				JOptionPane.showOptionDialog(null, "æ‚¨æ‰€è¾“å…¥çš„å­¦å·æœ‰è¯¯ï¼Œè¯·é‡æ–°è¾“å…¥", "è­¦å‘Šï¼", JOptionPane.DEFAULT_OPTION,
 						JOptionPane.WARNING_MESSAGE, null, options, options[0]);
 			}
 		}
@@ -134,8 +134,9 @@ public class Chaxun extends JDialog {
 
 	void xiugai() {
 		{
-			Object[] options = { "È·¶¨", "²»ĞŞ¸Ä" };
-			int n=JOptionPane.showOptionDialog(null, "ÇëÈ·ÈÏĞŞ¸Ä£¡", "ÌáÊ¾", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			Object[] options = { "ç¡®å®š", "ä¸ä¿®æ”¹" };
+			int n=JOptionPane.showOptionDialog(null, "è¯·ç¡®è®¤ä¿®æ”¹ï¼", "æç¤º", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			// yes/no -> 0/1
 			if(n==1){
 				return;
 			}
